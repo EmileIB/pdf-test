@@ -1,5 +1,6 @@
 import React from "react";
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import { Question } from "./Question";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -13,12 +14,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     width: "30%",
   },
-  text: {
-    fontSize: 10,
-  },
 });
 
-export const MyDocument = ({ count }) => {
+export const MyDocument = ({ questions }) => {
   return (
     <Document>
       <Page
@@ -29,14 +27,13 @@ export const MyDocument = ({ count }) => {
         }}
       >
         <View style={styles.section}>
-          <Text style={styles.text}>Section #1 - Count</Text>
-          <Text style={styles.text}>{count}</Text>
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.text}>Section #2</Text>
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.text}>Section #3</Text>
+          {questions.map((question) => (
+            <Question
+              title={question.title}
+              key={Math.random()}
+              options={question.options}
+            />
+          ))}
         </View>
       </Page>
     </Document>
